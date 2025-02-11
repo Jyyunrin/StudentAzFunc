@@ -1,7 +1,14 @@
 using Microsoft.Azure.Functions.Worker.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StudentAzFuncNew.Models.School;
 
 var builder = FunctionsApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<SchoolContext>(options =>
+    options.UseSqlServer(Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING")));
+
 
 builder.ConfigureFunctionsWebApplication();
 
